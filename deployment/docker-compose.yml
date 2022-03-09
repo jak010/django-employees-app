@@ -7,6 +7,8 @@ services:
       - "3307"
     build:
       context: .
+    platform: linux/amd64
+    
 
 
 

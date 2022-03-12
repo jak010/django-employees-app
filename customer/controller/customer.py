@@ -1,33 +1,23 @@
 from rest_framework.generics import (
-    ListAPIView,
-    CreateAPIView
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
 )
-from rest_framework.views import APIView
-from rest_framework.response import Response
 
-from ..domain.service import CustomerService
-from ..domain.serializer import CustomerReadSerializer, CustomerCreateSerializer
+from ..domain.model import (
+    Customers
+)
 
-from ..models import Customers
+from ..domain.model.serializer import (
+    CustomerSerializer,
+)
 
 
-class CustomerListView(ListAPIView):
+class CustomerListCreateAPIView(ListCreateAPIView):
     queryset = Customers.objects.all()
-    serializer_class = CustomerReadSerializer
+    serializer_class = CustomerSerializer
 
 
-class CustomerCreateView(CreateAPIView):
-    serializer_class = CustomerCreateSerializer
-
-# class CustomerDetailView(APIView):
-#
-#     @property
-#     def service(self):
-#         return CustomerService()
-#
-#     def get(self, request, customer_number):
-#         customer = self.service.get_customer(number=customer_number)
-#
-#         print(customer.customerNumber)
-#
-#         return Response(200)
+class CustomerRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Customers.objects.all()
+    serializer_class = CustomerSerializer
+    lookup_url_kwarg = "customerNumber"

@@ -1,5 +1,7 @@
-from customer.domain import repository
-from customer.models import Customers
+from customer.domain import (
+    model,
+    repository
+)
 
 
 class CustomerService:
@@ -7,5 +9,5 @@ class CustomerService:
     def __init__(self):
         self.repository = repository.CustomerRepository()
 
-    def get_customer(self, number: int) -> Customers:
+    def get_customer(self, number: int) -> model.Customers:
         return self.repository.find_by_pk(number=number)

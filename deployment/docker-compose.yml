@@ -6,8 +6,7 @@ services:
     expose:
       - "3307"
     build:
-      context: .
-    platform: linux/amd64
+      context: .    
     
 
 

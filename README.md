@@ -1,9 +1,9 @@
 # About Project
 
-- Django로 처음부터 끝까지 다 만들어보자
+- `pulpose`
+    - Django로 처음부터 끝까지 다 만들어보자
 
 ## Enviornment
 
-- DataBase: MySQL 5.6
-- DataBase Model:  MySQL Sample DB
+- DataBase: `deployment` 참고
 - Django : 3.2.10

@@ -1,3 +1,5 @@
+from django.utils.functional import cached_property
+
 from customer.domain import (
     model,
     repository
@@ -6,8 +8,13 @@ from customer.domain import (
 
 class CustomerService:
 
-    def __init__(self):
-        self.repository = repository.CustomerRepository()
+    @cached_property
+    def repository(self):
+        return repository.CustomerRepository()
 
-    def get_customer(self, number: int) -> model.Customers:
+    @property
+    def customers(self):
+        return self.repository.read()
+
+    def customer(self, number: int) -> model.Customers:
         return self.repository.find_by_pk(number=number)

@@ -6,5 +6,11 @@
 </head>
 <body>
 <h1>{{message}}</h1>
+
+{% for x in customers %}
+<p> {{x.addressLine1}}</p>
+
+{% endfor %}
+
 </body>
 </html>

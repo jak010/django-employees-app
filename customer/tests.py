@@ -7,13 +7,24 @@ import pytest
 from customer.domain.model import Customers
 
 
-@pytest.mark.django_db
-def test_customer_create():
-    customer = Customers.objects.create(
-        customerNumber=999
-    )
+# Django Model Test
 
-    assert customer.customerNumber == 999
+@pytest.fixture
+def customer(db):
+    return Customers.objects.create(
+        customerNumber=999,
+        customerName='tester')
+
+
+def test_customer_exist(customer):
+    # filter 는 queryset 을 반환
+    assert Customers.objects.filter(customerNumber=999).exists()
+
+
+def test_customer_check_name(customer):
+    # get 는 object 을 반환
+    assert Customers.objects.get(customerNumber=999) \
+               .customerName == 'tester'
 
 
 ## Example

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Customers(models.Model):
@@ -29,3 +30,6 @@ class Customers(models.Model):
 
     def __str__(self):
         return f"{self.customerNumber}: {self.customerName}"
+
+    def get_absolute_url(self):
+        return reverse("customer:detail", args=[self.customerNumber])

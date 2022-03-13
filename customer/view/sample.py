@@ -22,7 +22,6 @@ class CustomerView(TemplateView):
         )
 
     def get_context_data(self, **kwargs):
-        print(self.service.customers)
         return {
             "message": "Customers",
             "customers": self.service.customers

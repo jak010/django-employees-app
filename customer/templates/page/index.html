@@ -5,31 +5,41 @@
     <meta charset="UTF-8">
     <title>Hello</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-
-<!--    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>-->
     <script src="{% static 'js/bootstrap.js' %}"></script>
 </head>
 <body>
-<h1>{{message}}</h1>
-
-<!--{% for x in customers %}-->
-<!--<p> {{x.addressLine1}}</p>-->
-
-<!--{% endfor %}-->
-
+<center><h1>{{message}}</h1></center>
 
 <div class="container">
     <div class="row">
-        <div class="col">
-            Column
+        <div class="col badge bg-primary text-lowercase font-monospace">
+            CustomerNumber
         </div>
-        <div class="col">
-            Column
+        <div class="col badge bg-primary text-lowercase font-monospace">
+            CustomerName
         </div>
-        <div class="col">
-            Column
+        <div class="col badge bg-primary text-lowercase font-monospace">
+            AddressLine
         </div>
     </div>
 </div>
+
+{% for customer in customers %}
+
+<div class="container">
+    <div class="row">
+        <div class="col text-uppercase">
+            {{ customer.customerNumber }}
+        </div>
+        <div class="col text-uppercase">
+            {{ customer.customerName }}
+        </div>
+        <div class="col text-uppercase">
+            {{ customer.addressLine1 }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
 </body>
 </html>

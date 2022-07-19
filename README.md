@@ -1,9 +1,21 @@
-# About Project
+# Employess Applicaton Project With Django
 
-- `pulpose`
-    - Django로 처음부터 끝까지 다 만들어보자
+# Docker
 
-## Enviornment
+- `Compose`
+  ```text
+  $ cd deployment
+  $ sudo docker-compose up -d
+  ```
 
-- DataBase: `deployment` 참고
+# DateBase
+
+- MySQL EmployeesDB
+
+# Django Version
+
 - Django : 3.2.10
+
+# Required Package
+
+- Reference : requirement.txt

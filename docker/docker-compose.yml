@@ -2,9 +2,9 @@ version: '3'
 services:
   db:
     ports:
-      - "3307:3306"
+      - "3306:3306"
     expose:
-      - "3307"
+      - "3306"
     platform: linux/amd64
     build:
       context: .    

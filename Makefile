@@ -1,11 +1,7 @@
 
 
-build-db:
-	sudo docker-compose -f ./deployment/docker-compose.yml up -d
-
-build-db-with-log:
-	sudo docker-compose -f ./deployment/docker-compose.yml up
-
+rundocker:
+	cd ./docker && sudo docker-compose up -d
 
 build-develop:
 	python manage.py runserver 0.0.0.0:8000 --settings=config.settings.develop

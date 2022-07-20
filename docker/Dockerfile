@@ -8,17 +8,20 @@ ENV default-character-set utf8
 ENV default-collation utf8_general_ci
 
 ENV MYSQL_ROOT_PASSWORD=1234
-ENV MYSQL_DATABASE classicmodels
 
 RUN apt update
-RUN apt install -y wget unzip
+RUN apt install -y wget unzip git
 
-RUN wget --no-check-certificate https://www.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip
 
-RUN unzip /mysqlsampledatabase.zip
-RUN chmod 777 /mysqlsampledatabase.sql
+#RUN wget --no-check-certificate https://www.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip
+#RUN unzip /mysqlsampledatabase.zip
+#RUN chmod 777 /mysqlsampledatabase.sql
 
 WORKDIR /
+
+RUN git clone https://github.com/datacharmer/test_db.git
+
+WORKDIR /test_db
 
 ADD init-db.sh /docker-entrypoint-initdb.d
 

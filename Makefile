@@ -1,6 +1,6 @@
 
 
-rundocker:
+run-docker:
 	cd ./docker && sudo docker-compose up -d
 
 run-develop:

@@ -25,14 +25,10 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'classicmodels',
+        'NAME': 'employees',
         'USER': 'root',
         'PASSWORD': '1234',
         'HOST': '127.0.0.1',
-        'PORT': '3307',
+        'PORT': '3306',
     }
 }
-
-INSTALLED_APPS += [
-    'customer'
-]

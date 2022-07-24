@@ -5,7 +5,7 @@ services:
       - "3306:3306"
     expose:
       - "3306"
-#    platform: linux/amd64 # by OSX
+    platform: linux/amd64 # by OSX
     build:
       context: .    
     

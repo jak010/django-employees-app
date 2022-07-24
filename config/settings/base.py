@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-umpf7f56u$98^j@-66k1-@hun(x%d7@xtsc@b4&fwdz93jybjs
 # Application definition
 
 INSTALLED_APPS = [
+    'employees.apps.EmployeesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

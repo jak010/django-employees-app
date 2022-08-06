@@ -18,6 +18,15 @@
     - 직원은 하나의 부서에 속한다. 부서는 다음과 같은 정보로 구분된다.
         - 부서번호, 부서명
 
+# Points
+
+- containerized 적용해보기
+- 최대한 django module을 이용해서 구현해보기
+- typing 적용하기
+- domain 언어로 표현해보기
+ç    - domain 언어 : value object, entity, service, repository
+
+
 # Reference
 
 - `Employees Structure`

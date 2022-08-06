@@ -24,7 +24,7 @@
 - 최대한 django module을 이용해서 구현해보기
 - typing 적용하기
 - domain 언어로 표현해보기
-ç    - domain 언어 : value object, entity, service, repository
+    - domain 언어 : value object, entity, service, repository
 
 
 # Reference

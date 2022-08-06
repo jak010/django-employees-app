@@ -1,7 +1,15 @@
 
 
+#  local에서 실행할 때
+run-local:
+	python manage.py runserver 0.0.0.0:8000 --settings=config.settings.develop
+
+
+# docker 설정
 run-dev-docker:
 	cd ./.devcontainer && sudo docker-compose up -d
 
-run-develop:
-	python manage.py runserver 0.0.0.0:8000 --settings=config.settings.develop
+# Test Application
+
+run-test-employees:
+	python manage.py test employees.tests

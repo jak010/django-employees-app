@@ -30,3 +30,14 @@ class Employees(models.Model):
             'gender': self.gender,
             'hire_date': self.hire_date
         }
+
+
+class Titles(models.Model):
+    class Meta:
+        db_table = 'titles'
+        unique_together = (('emp_no', 'title', 'from_date'),)
+
+    emp_no = models.OneToOneField(Employees, models.DO_NOTHING, db_column='emp_no', primary_key=True)
+    title = models.CharField(max_length=50)
+    from_date = models.DateField()
+    to_date = models.DateField(blank=True, null=True)

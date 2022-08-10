@@ -1,6 +1,10 @@
 from __future__ import annotations
 
-from ._base_employee import BaseEmployeeEntity
+from ._base_employee import (
+    EmployeeProfile,
+    EmployeeType,
+    IEmployee
+)
 
 # Engineer
 from .assistant_engineer import AssistantEngineer

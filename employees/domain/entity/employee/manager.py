@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from employees.domain.entity.employee._base_employee import BaseEmployeeEntity
-from employees.domain.value_object.employee_profile import EmployeeProfile
+from employees.domain.entity.employee._base_employee import IEmployee, EmployeeType, EmployeeProfile
 
 
-class Manager(BaseEmployeeEntity):
-    EMPLOYEE_TITLE = 'Manager'
+class Manager(IEmployee):
+    EMPLOYEE_TITLE = EmployeeType.MANAGER.value
 
     def __init__(self, employee_profile: EmployeeProfile):
-        self._employee_profile: EmployeeProfile = employee_profile
+        super(Manager, self).__init__(employee_profile=employee_profile)

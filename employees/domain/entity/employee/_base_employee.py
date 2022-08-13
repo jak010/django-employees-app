@@ -21,7 +21,17 @@ class EmployeeType(Enum):
         return [e.value for e in cls]
 
 
+class EmployeeGenderType(Enum):
+    MAIL = "M"
+    FEMAIL = "F"
+
+    @classmethod
+    def values(cls):
+        return [e.value for e in cls]
+
+
 class IEmployee(abc.ABC):
+    """ Employee Interface """
     EMPLOYEE_TITLE = ''
 
     @abc.abstractmethod
@@ -31,6 +41,7 @@ class IEmployee(abc.ABC):
         self.last_name = employee_profile.last_name
         self.hire_date = employee_profile.hire_date
         self.birth_date = employee_profile.birth_date
+        self.gender = employee_profile.gender
 
     def __eq__(self, other: EmployeeProfile) -> bool:
         if self.emp_no == other.emp_no:
@@ -47,14 +58,26 @@ class IEmployee(abc.ABC):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'hire_date': self.hire_date,
-            'birth_date': self.birth_date
+            'birth_date': self.birth_date,
+            'gender': self.gender
         }
 
 
 class EmployeeProfile:
+    """ employee가 가져야 하는 data
 
-    def __init__(self, emp_no: int, first_name: str, last_name: str, hire_date: date, birth_date: date,
-                 title: str = None):
+    - employee model, title model의 data trasnaction object
+    """
+
+    def __init__(self,
+                 emp_no: int,
+                 first_name: str,
+                 last_name: str,
+                 hire_date: date,
+                 birth_date: date,
+                 gender: str,
+                 title: str = None
+                 ):
         self.title = title if title in EmployeeType.values() else None
 
         self.emp_no = emp_no
@@ -62,6 +85,7 @@ class EmployeeProfile:
         self.last_name = last_name
         self.hire_date = hire_date
         self.birth_date = birth_date
+        self.gender = gender
 
     @classmethod
     def with_kwargs(cls, **kwargs):
@@ -71,5 +95,6 @@ class EmployeeProfile:
             first_name=kwargs.get('first_name', None),
             last_name=kwargs.get('last_name', None),
             hire_date=kwargs.get('hire_date', None),
-            birth_date=kwargs.get('birth_date', None)
+            birth_date=kwargs.get('birth_date', None),
+            gender=kwargs.get('gender', None)
         )

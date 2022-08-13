@@ -17,7 +17,8 @@ def test_employee_create_view_with_success(client):
         'last_name': 'ja',
         'first_name': 'ko',
         'hire_date': _today,
-        'birth_date': _today
+        'birth_date': _today,
+        'gender': "M"
     })
 
     # then
@@ -39,7 +40,8 @@ def test_employee_create_view_with_failure_when_engineer_create(client):
         'last_name': 'ja',
         'first_name': 'ko',
         'hire_date': _today,
-        'birth_date': _today
+        'birth_date': _today,
+        'gender': "M"
     })
 
     # then

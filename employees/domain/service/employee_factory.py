@@ -44,3 +44,5 @@ class EmployeeFactory:
             return TechniqueLeader(employee_profile=self._employee_profile)
         if self._employee_profile.title == EmployeeType.MANAGER.value:
             return Manager(employee_profile=self._employee_profile)
+
+        return None

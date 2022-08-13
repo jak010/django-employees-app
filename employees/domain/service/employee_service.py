@@ -1,28 +1,35 @@
 from .employee_factory import EmployeeFactory
 from employees.domain.entity.employee import IEmployee, EmployeeProfile
 
+from employees.domain.models import Employees as EmployeesModel
+from typing import Optional
+from django.http.response import HttpResponse
+
+
+class EmployeeCreateError(HttpResponse):
+    status_code = 200
+
+    def __init__(self):
+        """ Employee 생성 실패 """
+        super(EmployeeCreateError, self).__init__(status=200_001)
+
 
 class EmployeeService:
 
-    # def employee_profile(self, employee_profile) -> EmployeeProfile:
-    #     return EmployeeProfile(
-    #         emp_no=employee_profile['emp_no'],
-    #         title=employee_profile['title'],
-    #         name=EmployeeName(
-    #             first_name=employee_profile['first_name'],
-    #             last_name=employee_profile['last_name']
-    #         ),
-    #         hire_date=employee_profile['hire_date'],
-    #         birth_date=employee_profile['birth_date']
-    #     )
-
-    def create(self, employee_profile: EmployeeProfile) -> IEmployee:
-        # employee_profile = self.BaseEmployeeEntity(employee_profile)
-        print('='*20)
-        print(employee_profile.title)
+    def create(self, employee_profile: EmployeeProfile) -> Optional[EmployeesModel, HttpResponse]:
+        """ employee 생성 """
         employee = EmployeeFactory(employee_profile=employee_profile) \
             .get_employee()
 
-        print('=' * 20)
+        if employee is None:
+            return EmployeeCreateError()
+
+        employee = EmployeesModel.objects.create(
+            birth_date=employee.birth_date,
+            first_name=employee.first_name,
+            last_name=employee.last_name,
+            gender=employee.gender,
+            hire_date=employee.hire_date,
+        )
 
         return employee

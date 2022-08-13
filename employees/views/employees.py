@@ -12,7 +12,6 @@ class EmployeeCreateApi(_View):
 
     class InputEmployeeProfileForm(forms.Form):
         title = forms.CharField(max_length=25)
-        emp_no = forms.IntegerField()
         first_name = forms.CharField(max_length=15)
         last_name = forms.CharField(max_length=15)
         gender = forms.CharField(max_length=1)

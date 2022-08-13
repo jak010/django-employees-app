@@ -1,9 +1,9 @@
-from .employee_factory import EmployeeFactory
-from employees.domain.entity.employee import IEmployee, EmployeeProfile
+from typing import Union
 
-from employees.domain.models import Employees as EmployeesModel
-from typing import Optional
 from django.http.response import HttpResponse
+
+from employees.domain.entity.employee import EmployeeProfile, IEmployee
+from employees.domain.module.employee_factory import EmployeeFactory
 
 
 class EmployeeCreateError(HttpResponse):
@@ -16,20 +16,14 @@ class EmployeeCreateError(HttpResponse):
 
 class EmployeeService:
 
-    def create(self, employee_profile: EmployeeProfile) -> Optional[EmployeesModel, HttpResponse]:
+    def create(self, employee_profile: EmployeeProfile) -> Union[IEmployee, HttpResponse]:
         """ employee 생성 """
-        employee = EmployeeFactory(employee_profile=employee_profile) \
-            .get_employee()
+        employee_factory = EmployeeFactory(employee_profile=employee_profile)
+        employee_factory.create_employee()
+
+        employee = employee_factory.get_employee()
 
         if employee is None:
             return EmployeeCreateError()
-
-        employee = EmployeesModel.objects.create(
-            birth_date=employee.birth_date,
-            first_name=employee.first_name,
-            last_name=employee.last_name,
-            gender=employee.gender,
-            hire_date=employee.hire_date,
-        )
 
         return employee

@@ -1,9 +1,9 @@
-from typing import Union
+from typing import Union, Optional
 
 from django.http.response import HttpResponse
 
-from employees.domain.entity.employee import EmployeeProfile, IEmployee
-from employees.domain.module.employee_factory import EmployeeFactory
+from ..entity.employee import EmployeeEntity
+from ..models import Employees as EmployeesModel
 
 
 class EmployeeCreateError(HttpResponse):
@@ -16,14 +16,18 @@ class EmployeeCreateError(HttpResponse):
 
 class EmployeeService:
 
-    def create(self, employee_profile: EmployeeProfile) -> Union[IEmployee, HttpResponse]:
-        """ employee 생성 """
-        employee_factory = EmployeeFactory(employee_profile=employee_profile)
-        employee_factory.create_employee()
+    def create(self, employee: EmployeeEntity) -> Optional[EmployeesModel, HttpResponse]:
+        """ employee 생성하기 """
 
-        employee = employee_factory.get_employee()
-
-        if employee is None:
+        try:
+            employee = EmployeesModel.objects.create(
+                birth_date=employee.birth_date,
+                hire_date=employee.hire_date,
+                first_name=employee.first_name,
+                last_name=employee.last_name,
+                gender=employee.gender,
+            )
+        except Exception:
             return EmployeeCreateError()
 
         return employee

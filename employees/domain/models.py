@@ -4,11 +4,14 @@ from django.db import models
 
 from django.db.models import Manager
 
-
 # Create your models here.
 
+from typing import TypeVar
 
-class Employees(models.Model):
+DjangoModelType = TypeVar('DjangoModelType', bound=models.Model)
+
+
+class Employees(DjangoModelType):
     class Meta:
         db_table = 'employees'
 
@@ -21,23 +24,14 @@ class Employees(models.Model):
 
     objects = Manager()
 
-    def to_dict(self):
-        return {
-            'emp_no': self.emp_no,
-            'birth_date': self.birth_date,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'gender': self.gender,
-            'hire_date': self.hire_date
-        }
-
 
 class Titles(models.Model):
-    class Meta:
-        db_table = 'titles'
-        unique_together = (('emp_no', 'title', 'from_date'),)
-
-    emp_no = models.OneToOneField(Employees, models.DO_NOTHING, db_column='emp_no', primary_key=True)
+    emp_no = models.ForeignKey(Employees, models.DO_NOTHING, db_column='emp_no', primary_key=True)
     title = models.CharField(max_length=50)
     from_date = models.DateField()
     to_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'titles'
+        unique_together = (('emp_no', 'title', 'from_date'),)

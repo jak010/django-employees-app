@@ -20,7 +20,7 @@ class EmployeeFactory:
     def __init__(self, employee_profile: EmployeeProfile):
         self._employee_profile: EmployeeProfile = employee_profile
 
-    def get_employee(self) -> Optional[IEmployee]:
+    def get_instance(self) -> Optional[IEmployee]:
 
         if self._employee_profile.title is None:
             return None

@@ -27,11 +27,12 @@ class EmployeeCreateApi(_View):
         return EmployeeService()
 
     def post(self, request):
+        """ Employee 생성하기 """
         input_form = self.InputForm(data=request.POST)
         if not input_form.is_valid():
-            return HttpResponseBadRequest("InValid InputForm")  # 400
+            return HttpResponseBadRequest("InValid Request Data")  # 400
 
-        new_employee = self.service.create(
+        new_employee = self.service.create_employee(
             employee_profile=input_form.to_employee_profile
         )
 

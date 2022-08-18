@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.db import models
 
-from django.db.models import Manager
+from django.db.models.query import QuerySet
 
 # Create your models here.
 
@@ -22,7 +22,7 @@ class Employees(DjangoModelType):
     gender = models.CharField(max_length=1)
     hire_date = models.DateField()
 
-    objects = Manager()
+    objects: QuerySet = models.Manager()
 
 
 class Titles(models.Model):

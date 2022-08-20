@@ -1,36 +1,34 @@
-from employees.domain.models.EmployeeModel import Employees
+import logging
 
 from django import forms
-
-from employees.domain.dto import EmployeeDto, TitleDto
-from employees.domain.models.EmployeeModel import Employees
+import traceback
 from employees.domain.constant import EmployeeGenderType
+from employees.domain.dto import EmployeeDto
+from employees.domain.models.EmployeeModel import Employees
 
-from django.http.response import HttpResponse
+from employees.domain.exception import EmployeeCreateFailError
 
-
-class HttpNewEmployeeResponse(HttpResponse):
-    status_code = 200
-
-    def __init__(self, content: dict):
-        super(HttpNewEmployeeResponse, self).__init__(content=content)
+from django.db.utils import DataError, IntegrityError
 
 
 class EmployeeService:
 
-    def create(self, employee: forms.Form):
+    @staticmethod
+    def create(employee_form: forms.Form):
+
         employee_dto = EmployeeDto(
-            first_name=employee.cleaned_data['first_name'],
-            last_name=employee.cleaned_data['last_name'],
-            birth_date=employee.cleaned_data['birth_date'],
-            hire_date=employee.cleaned_data['hire_date'],
-            gender=EmployeeGenderType.with_value(value=employee.cleaned_data['gender'])
+            emp_no=employee_form.cleaned_data['emp_no'],
+            first_name=employee_form.cleaned_data['first_name'],
+            last_name=employee_form.cleaned_data['last_name'],
+            birth_date=employee_form.cleaned_data['birth_date'],
+            hire_date=employee_form.cleaned_data['hire_date'],
+            gender=EmployeeGenderType.with_value(value=employee_form.cleaned_data['gender'])
         )
 
         try:
             new_employee = Employees.objects.create(**employee_dto.to_dict)
-        except Exception as e:
-            raise Exception("Employee Create Failed : ")
+        except DataError as e:
+            raise EmployeeCreateFailError()
 
         return new_employee
 

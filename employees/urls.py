@@ -1,12 +1,14 @@
 from django.urls import path
 
-from .views import employees
+from .api import (
+    employee_create
+)
 
 app_name = "employee"
 
 urlpatterns = [
 
     # Post: Employee Create
-    path("create", employees.EmployeeCreateApi.as_view(), name='create')
+    path("create", employee_create.EmployeeCreateApi.as_view(), name='create')
 
 ]

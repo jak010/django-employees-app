@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from enum import Enum
 
+from ..domain.exception import EmployeeDtoFaileError
+
 
 class EmployeeType(Enum):
     SENIOR_ENGINEER = 'Senior Engineer'
@@ -33,4 +35,4 @@ class EmployeeGenderType(Enum):
             if e.value == value:
                 return e
 
-        raise Exception(cls.__name__ + " is not Define:  " + value)
+        raise EmployeeDtoFaileError(cls.__name__ + " is not Define:  " + value)

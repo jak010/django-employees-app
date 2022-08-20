@@ -4,10 +4,8 @@ from django.db import models
 
 from django.db.models.query import QuerySet
 
-from config.type_defined import DjangoModelType
 
-
-class Employees(DjangoModelType):
+class Employees(models.Model):
     """ Employee 에 대한 Model  """
 
     emp_no = models.IntegerField(primary_key=True)

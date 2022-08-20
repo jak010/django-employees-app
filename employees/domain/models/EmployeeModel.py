@@ -4,16 +4,11 @@ from django.db import models
 
 from django.db.models.query import QuerySet
 
-# Create your models here.
-
-from typing import TypeVar
-
-DjangoModelType = TypeVar('DjangoModelType', bound=models.Model)
+from config.type_defined import DjangoModelType
 
 
 class Employees(DjangoModelType):
-    class Meta:
-        db_table = 'employees'
+    """ Employee 에 대한 Model  """
 
     emp_no = models.IntegerField(primary_key=True)
     birth_date = models.DateField()
@@ -24,8 +19,12 @@ class Employees(DjangoModelType):
 
     objects: QuerySet = models.Manager()
 
+    class Meta:
+        db_table = 'employees'
+
 
 class Titles(models.Model):
+    """ Employee가 갖는  Titles에 대한 Model """
     emp_no = models.ForeignKey(Employees, models.DO_NOTHING, db_column='emp_no', primary_key=True)
     title = models.CharField(max_length=50)
     from_date = models.DateField()

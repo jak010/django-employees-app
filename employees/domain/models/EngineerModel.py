@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.db import models
 
-from .models import Employees
+from .EmployeeModel import Employees
 
 
 class EngineerManager(models.Manager):

@@ -1,2 +1,2 @@
-from .models import Employees, Titles
+from .EmployeeModel import Employees, Titles
 from .EngineerModel import Engineer

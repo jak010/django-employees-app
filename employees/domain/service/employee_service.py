@@ -1,19 +1,41 @@
-from typing import Type
+from employees.domain.models.EmployeeModel import Employees
 
-from .employee_factory import EmployeeFactory
-from employees.domain.entity.employee import IEmployee, EmployeeProfile
+from django import forms
 
-from ..models import Employees as EmployeeModel
+from employees.domain.dto import EmployeeDto, TitleDto
+from employees.domain.models.EmployeeModel import Employees
+from employees.domain.constant import EmployeeGenderType
+
+from django.http.response import HttpResponse
+
+
+class HttpNewEmployeeResponse(HttpResponse):
+    status_code = 200
+
+    def __init__(self, content: dict):
+        super(HttpNewEmployeeResponse, self).__init__(content=content)
 
 
 class EmployeeService:
 
-    def create_employee(self, employee_profile: EmployeeProfile) -> IEmployee:
-        employee = EmployeeFactory(employee_profile=employee_profile).get_instance()
+    def create(self, employee: forms.Form):
+        employee_dto = EmployeeDto(
+            first_name=employee.cleaned_data['first_name'],
+            last_name=employee.cleaned_data['last_name'],
+            birth_date=employee.cleaned_data['birth_date'],
+            hire_date=employee.cleaned_data['hire_date'],
+            gender=EmployeeGenderType.with_value(value=employee.cleaned_data['gender'])
+        )
 
-        print(self.find_employee_by(emp_no=employee.emp_no))
+        try:
+            new_employee = Employees.objects.create(**employee_dto.to_dict)
+        except Exception as e:
+            raise Exception("Employee Create Failed : ")
 
-        return employee
+        return new_employee
 
-    def find_employee_by(self, emp_no: int):
-        return EmployeeModel.objects.get(emp_no=emp_no)
+    def delete(self):
+        return None
+
+    def update(self):
+        return None

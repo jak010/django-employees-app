@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from enum import Enum
 
-from ..domain.exception import EmployeeDtoFaileError
-
 
 class EmployeeType(Enum):
     SENIOR_ENGINEER = 'Senior Engineer'
@@ -33,6 +31,4 @@ class EmployeeGenderType(Enum):
     def with_value(cls, value):
         for e in cls:
             if e.value == value:
-                return e
-
-        raise EmployeeDtoFaileError(cls.__name__ + " is not Define:  " + value)
+                return e.value

@@ -1,6 +1,10 @@
-class EmployeeCreateFailError(Exception):
+class EmployeeException(Exception):
+    """ EmployeeExcetpion"""
+
+
+class EmployeeCreateFailError(EmployeeException):
     """ Employee 생성 실패 """
 
 
-class EmployeeDtoFaileError(Exception):
-    """ DTO 변환에 실패함 """
+class EmployeeDuplicationError(EmployeeException):
+    """ 이미 존재하는 Employee """

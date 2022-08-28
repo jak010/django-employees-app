@@ -16,12 +16,12 @@ class EmployeeCreateApi(_View):
         return EmployeeService()
 
     class InputEmployeeForm(forms.Form):
-        emp_no = forms.IntegerField()
-        first_name = forms.CharField(max_length=15)
-        last_name = forms.CharField(max_length=15)
-        gender = forms.ChoiceField(choices=(('M', 'M'), ('F', 'F')))
-        birth_date = forms.DateField()
-        hire_date = forms.DateField()
+        emp_no = forms.IntegerField(required=True)
+        first_name = forms.CharField(max_length=15, required=True)
+        last_name = forms.CharField(max_length=15, required=True)
+        gender = forms.ChoiceField(choices=(('M', 'M'), ('F', 'F')), required=True)
+        birth_date = forms.DateField(required=True)
+        hire_date = forms.DateField(required=True)
 
     def post(self, request):
         """ employee 생성 api """

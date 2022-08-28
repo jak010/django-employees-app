@@ -4,7 +4,7 @@ import json
 from django.http.response import HttpResponse
 
 
-class EmployeeResponsCode(enum.Enum):
+class EmployeeResponseCode(enum.Enum):
     OK = 200
     CREATED = 201
     NO_CONTENT = 204
@@ -20,7 +20,7 @@ class EmployeeResponseContentType(enum.Enum):
 
 
 class HttpEmployeeInvalidInputResponse(HttpResponse):
-    status_code = EmployeeResponsCode.BAD_REQUEST.value
+    status_code = EmployeeResponseCode.BAD_REQUEST.value
     content_type = EmployeeResponseContentType.APPLICATION_JSON.value
 
     def __init__(self):

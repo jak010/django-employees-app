@@ -2,13 +2,13 @@ import json
 
 from django.http.response import HttpResponse
 
-from employees.api.response import EmployeeResponsCode, EmployeeResponseContentType
+from employees.api.response import EmployeeResponseCode, EmployeeResponseContentType
 from employees.domain.models.EmployeeModel import Employees as EmployeesModel
 
 
 class HttpNewEmployeeResponse(HttpResponse):
     """ Employee 생성 성공 """
-    status_code = EmployeeResponsCode.CREATED.value
+    status_code = EmployeeResponseCode.CREATED.value
     content_type = EmployeeResponseContentType.APPLICATION_JSON.value
 
     def __init__(self, new_employee: EmployeesModel):
@@ -38,7 +38,7 @@ class HttpNewEmployeeResponse(HttpResponse):
 
 class HttpDuplicateEmployeeResponse(HttpResponse):
     """ 이미 존재하는 Employee 정보 """
-    status_code = EmployeeResponsCode.RESOURCE_ALREADY_EXISTS.value
+    status_code = EmployeeResponseCode.RESOURCE_ALREADY_EXISTS.value
     content_type = EmployeeResponseContentType.APPLICATION_JSON.value
 
     def __init__(self):

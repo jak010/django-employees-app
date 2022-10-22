@@ -4,8 +4,6 @@ import traceback
 from django.http.response import HttpResponse
 from django.utils.deprecation import MiddlewareMixin
 
-from employees.domain.exception import EmployeeException
-
 
 class HandleBusiniessExceptionMiddleware(MiddlewareMixin):
 

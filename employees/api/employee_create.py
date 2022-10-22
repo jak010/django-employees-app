@@ -1,11 +1,11 @@
 from django import forms
 from django.utils.functional import cached_property
 from django.views.generic import View as _View
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
-from employees.api.response import HttpEmployeeInvalidInputResponse
-from employees.api.response.new_employee import HttpNewEmployeeResponse, HttpDuplicateEmployeeResponse
-from employees.domain.exception import EmployeeDuplicationError
-from ..domain.service.employee_service import EmployeeService
+from employees.api.error.duplicate_employee_error import DuplicateEmployeeResponseError
+from employees.exceptions import EmployeeDuplicationError
+from employees.service.employee_service import EmployeeService
 
 
 class EmployeeCreateApi(_View):
@@ -27,11 +27,16 @@ class EmployeeCreateApi(_View):
         """ employee 생성 api """
         input_employee_form = self.InputEmployeeForm(data=request.POST)
         if not input_employee_form.is_valid():
-            return HttpEmployeeInvalidInputResponse()
+            return HttpResponseBadRequest()
 
         try:
-            new_employee = self.employee_service.create(employee_form=input_employee_form)
+            new_employee = self.employee_service.create(
+                employee_form=input_employee_form
+            )
         except EmployeeDuplicationError as e:
-            return HttpDuplicateEmployeeResponse()
+            return DuplicateEmployeeResponseError()
 
-        return HttpNewEmployeeResponse(new_employee=new_employee)
+
+        return JsonResponse(
+            data=new_employee.to_dict()
+        )

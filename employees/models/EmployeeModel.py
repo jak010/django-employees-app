@@ -20,6 +20,16 @@ class Employees(models.Model):
     class Meta:
         db_table = 'employees'
 
+    def to_dict(self):
+        return {
+            'emp_no': self.emp_no,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'gender': self.gender,
+            'birth_date': self.birth_date,
+            'hire_date': self.hire_date
+        }
+
 
 class Titles(models.Model):
     """ Employee가 갖는  Titles에 대한 Model """

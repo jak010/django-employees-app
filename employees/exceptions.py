@@ -7,4 +7,4 @@ class EmployeeCreateFailError(EmployeeException):
 
 
 class EmployeeDuplicationError(EmployeeException):
-    """ 이미 존재하는 Employee """
+    """ 중복된 Employee """

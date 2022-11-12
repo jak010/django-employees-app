@@ -16,6 +16,14 @@ def internal_server_error(exc_message):
     return JsonResponse(data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+def bad_request_error(exc_message):
+    data = {
+        'error': 'Bad Request Error',
+        'exec': exc_message
+    }
+    return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ApiException(Exception):
     """ All Exception Parser """
 

@@ -23,8 +23,7 @@ class EmployeeCreateApi(APIView):
     def post(self, request):
         """ employee 생성 api """
         serializer = self.InputSerializer(data=request.POST)
-        if not serializer.is_valid(raise_exception=True):
-            return HttpResponseBadRequest()
+        serializer.is_valid(raise_exception=True)
 
         new_emplopyee = services.create_employee(
             **serializer.data

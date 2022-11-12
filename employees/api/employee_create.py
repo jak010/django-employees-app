@@ -36,7 +36,6 @@ class EmployeeCreateApi(_View):
         except EmployeeDuplicationError as e:
             return DuplicateEmployeeResponseError()
 
-
         return JsonResponse(
             data=new_employee.to_dict()
         )

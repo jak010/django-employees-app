@@ -6,8 +6,8 @@ run.local:
 
 
 # docker 설정
-run.dev.docker:
-	cd ./.devcontainer && sudo docker-compose up -d
+run.dev.db.docker:
+	cd ./.devdbcontainer && sudo docker-compose up -d
 
 # Test Application
 

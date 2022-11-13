@@ -33,6 +33,8 @@ class ExceptionHandlerMiddleware:
         """ API에서 캐치하지 못한 500에러 처리 """
 
         exc_msg = traceback.format_exception(exception)
+        print(''.join(exc_msg))
+
         if isinstance(exception, Exception):
-            return InternalServerError(
-                exc_message=exc_msg).to_response()
+            return InternalServerError(exc_message=exc_msg) \
+                .to_response()

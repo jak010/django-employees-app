@@ -9,10 +9,8 @@ from .api import (
 app_name = "employee"
 
 urlpatterns = [
-
-    # Post: Employee Create
     path("create", employee_create.EmployeeCreateApi.as_view(), name='create'),
     path("", employee_list.EmployeeListApi.as_view(), name='list'),
-    path("update", employee_update.EmployeeUpdateApi.as_view(), name='update')
+    path("<int:emp_no>/update", employee_update.EmployeeUpdateApi.as_view(), name='update')
 
 ]

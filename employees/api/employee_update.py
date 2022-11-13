@@ -1,27 +1,29 @@
-from django import forms
-import uuid
-from django.http import HttpResponseBadRequest, HttpResponse
-from django.views.generic import View as _View
+from __future__ import annotations
 
-from config.type_defined import DjangoModelType
-from ..models import Employees
+from django.http import HttpResponse
 
-from django.db import transaction
+from rest_framework import serializers
+from rest_framework.views import APIView
+
+from ..models.EmployeeModel import Employees
 
 
-class EmployeeUpdateApi(_View):
+class EmployeeUpdateApi(APIView):
     """ Employee Update Api """
 
-    def post(self, request):
-        """ employee 생성 api """
-        model: DjangoModelType = Employees.objects.get(emp_no=5)
+    class InputSerializer(serializers.Serializer):  # noqa
+        first_name = serializers.CharField(max_length=10, required=False)
+        last_name = serializers.CharField(max_length=10, required=False)
 
-        with transaction.atomic():
-            current_value = int(model.first_name)
-            current_value = current_value + 1
+    def put(self, request, emp_no: int):
+        """ employee 업데이트 api """
 
-            model.first_name = str(current_value)
-            model.save()
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-        transaction.commit()
+        employee = Employees.objects.get(emp_no=emp_no)
+        employee.first_name = serializer.data['first_name']
+        employee.last_name = serializer.data['last_name']
+        employee.save()
+
         return HttpResponse()

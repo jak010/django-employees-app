@@ -4,8 +4,7 @@ from rest_framework import status
 from rest_framework.exceptions import (
     APIException,
 )
-from django.http.response import JsonResponse
-from rest_framework.exceptions import ValidationError
+from django.http.response import JsonResponse, HttpResponse
 
 
 class HttpException:
@@ -37,6 +36,12 @@ class BadRequestError(HttpException):
 class NotFoundError(HttpException):
     description = 'Not Found'
     status_code = status.HTTP_404_NOT_FOUND
+
+    def to_response(self):
+        return HttpResponse(
+            status=self.status_code,
+            content=self.exc_message
+        )
 
 
 class ApiException(Exception):

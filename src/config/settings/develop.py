@@ -28,7 +28,7 @@ DATABASES = {
         'NAME': 'employees',
         'USER': 'root',
         'PASSWORD': '1234',
-        'HOST': '192.168.0.29',
+        'HOST': '192.168.0.3',
         'PORT': '3306',
         'OPTIONS': {
             "isolation_level": "REPEATABLE READ",

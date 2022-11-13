@@ -7,6 +7,7 @@ services:
     volumes:
       - uwsgi_data:/tmp/shm
     command: uwsgi -i /usr/src/app/uwsgi_sock.ini
+
   reverse_proxy:
     image: nginx:1.21.6-alpine
     ports:

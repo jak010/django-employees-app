@@ -4,7 +4,6 @@ import json
 import traceback
 
 from rest_framework import status
-from rest_framework.utils.encoders import JSONEncoder
 
 from .exceptions import BadRequestError, NotFoundError, InternalServerError
 
@@ -18,8 +17,7 @@ class ExceptionHandlerMiddleware:
         response = self.get_response(request)
 
         if response.content:
-            # json.loads를 이용하여 browser에서 테스트할 경우 JSONDecodeError가 일어난다.
-            response_content = json.dumps(response.content.decode(), cls=JSONEncoder)
+            response_content = json.loads(response.content.decode())
         else:
             response_content = None
 
@@ -35,7 +33,6 @@ class ExceptionHandlerMiddleware:
 
     def process_exception(self, request, exception):  # noqa
         """ API에서 캐치하지 못한 500에러 처리 """
-
         exc_msg = traceback.format_exception(exception)
         print(''.join(exc_msg))
 

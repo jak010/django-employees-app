@@ -5,9 +5,10 @@ from rest_framework.exceptions import (
     APIException,
 )
 from django.http.response import JsonResponse
+from rest_framework.exceptions import ValidationError
 
 
-class StatusGroup:
+class HttpException:
     description: str
     status_code: status
 
@@ -23,17 +24,17 @@ class StatusGroup:
         )
 
 
-class InternalServerError(StatusGroup):
+class InternalServerError(HttpException):
     description = "Internal Server Error"
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
-class BadRequestError(StatusGroup):
+class BadRequestError(HttpException):
     description = "Bad Request Error"
     status_code = status.HTTP_400_BAD_REQUEST
 
 
-class NotFoundError(StatusGroup):
+class NotFoundError(HttpException):
     description = 'Not Found'
     status_code = status.HTTP_404_NOT_FOUND
 

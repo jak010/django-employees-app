@@ -3,7 +3,7 @@ from __future__ import annotations
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..employee_serializers import EmployeeSerializer
+from ..serializers import EmployeeSerializer
 from ..models.EmployeeModel import Employees
 
 

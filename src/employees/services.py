@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from .models.EmployeeModel import Employees
-from config.type_defined import DjangoModelType
 
 from django.db import IntegrityError
 from config.exceptions import EmployeeException

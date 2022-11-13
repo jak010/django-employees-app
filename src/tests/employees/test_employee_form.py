@@ -2,7 +2,7 @@ import pytest
 
 from django import forms
 from django.utils.datastructures import MultiValueDict
-from employees.domain.models import Employees
+from src.employees import Employees
 
 
 def _today():

@@ -16,8 +16,10 @@ class ExceptionHandlerMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
+
         if response.content:
-            response_content = json.loads(response.content.decode())
+            # json.loads를 이용하여 browser에서 테스트할 경우 JSONDecodeError가 일어난다.
+            response_content = json.dumps(response.content.decode(), cls=JSONEncoder)
         else:
             response_content = None
 
@@ -26,6 +28,8 @@ class ExceptionHandlerMiddleware:
             return BadRequestError(exc_message=response_content).to_response()
         if response.status_code == status.HTTP_404_NOT_FOUND:
             return NotFoundError(exc_message=response_content).to_response()
+        else:
+            pass
 
         return response
 

@@ -1,5 +1,10 @@
 # Employess Project With Django
 
+## Config
+- Pycharm 에서 src를 Source Root로 지정할 것 
+- .gitmesasge.txt -> `git config commit.template` 으로 지정할 것
+
+
 # Git Commit Message
 ```text
 # .git-commit-rule.txt

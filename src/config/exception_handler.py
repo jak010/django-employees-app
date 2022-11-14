@@ -6,33 +6,21 @@ from rest_framework import status
 
 from .exceptions import (
     BadRequestError,
-    NotFoundError,
-    InternalServerError
 )
 
+from rest_framework.response import Response
+from rest_framework.views import exception_handler
 
-class ExceptionHandlerMiddleware:
+from rest_framework.exceptions import ValidationError
 
-    def __init__(self, get_response):
-        self.get_response = get_response
 
-    def __call__(self, request):
-        response = self.get_response(request)
-        response_content = response.content.decode()
+def exception_handler_func(exc, context):
+    if isinstance(exc, ValidationError):
+        exec = BadRequestError()
 
-        if response_content:
-            if response.status_code == status.HTTP_400_BAD_REQUEST:
-                return BadRequestError(exc_message=response_content).to_response()
-            if response.status_code == status.HTTP_404_NOT_FOUND:
-                return NotFoundError(exc_message=response_content).to_response()
+    response = exception_handler(exec, context)
+    if response is not None:
+        response.data['code'] = exec.get_codes()
+        response.data['detail'] = exc.get_full_details()
 
-        return response
-
-    def process_exception(self, request, exception):  # noqa
-        """ API에서 캐치하지 못한 500에러 """
-        exc_msg = traceback.format_exception(exception)
-        print(''.join(exc_msg))
-
-        if isinstance(exception, Exception):
-            return InternalServerError(exc_message=exc_msg) \
-                .to_response()
+    return response

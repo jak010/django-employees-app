@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 
 from config.paginator import DefaultPaginator
 from ..models.EmployeeModel import Employees
-from ..services import EmployeeList
 
 
 class EmployeeListApi(APIView):

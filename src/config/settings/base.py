@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'config.exception_handler.ExceptionHandlerMiddleware'
+    # 'config.exception_handler.ExceptionHandlerMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -107,5 +107,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'config.paginator.DefaultPaginator',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+
+    'EXCEPTION_HANDLER': 'config.exception_handler.exception_handler_func'
+
 }

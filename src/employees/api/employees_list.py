@@ -2,24 +2,15 @@ from __future__ import annotations
 
 import django_filters
 from rest_framework import serializers
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import APIView
 
+from config.paginator import DefaultPaginator
 from ..models.EmployeeModel import Employees
+from ..services import EmployeeList
 
 
 class EmployeeListApi(APIView):
     """ Employee 조회 Api """
-
-    class LimitofPage(LimitOffsetPagination):
-        default_limit = 10
-
-    class QueryParamSerializer(serializers.Serializer):  # noqa
-        emp_no = serializers.IntegerField(max_value=100000, required=False)
-        emp_no__gt = serializers.IntegerField(max_value=100000, required=False)
-        emp_no__lt = serializers.IntegerField(max_value=100000, required=False)
-
-        first_name = serializers.CharField(max_length=10, required=False)
 
     class FilterSet(django_filters.FilterSet):
         emp_no = django_filters.NumberFilter()
@@ -35,6 +26,13 @@ class EmployeeListApi(APIView):
                 'first_name': []
             }
 
+    class InputSerializer(serializers.Serializer):  # noqa
+        emp_no = serializers.IntegerField(max_value=100000, required=False)
+        emp_no__gt = serializers.IntegerField(max_value=100000, required=False)
+        emp_no__lt = serializers.IntegerField(max_value=100000, required=False)
+
+        first_name = serializers.CharField(max_length=10, required=False)
+
     class OutputSerializer(serializers.ModelSerializer):
         class Meta:
             model = Employees
@@ -43,19 +41,23 @@ class EmployeeListApi(APIView):
     def get(self, request):
         """ employee 목록조회 """
 
-        # Query
-        query_params = self.QueryParamSerializer(data=request.query_params)
-        query_params.is_valid(raise_exception=True)
+        # InputSerializer (In QueryParam)
+        input_serializer = self.InputSerializer(data=request.query_params)
+        input_serializer.is_valid(raise_exception=True)
 
         # Filter
-        query_set = Employees.objects.all()
-        filters = self.FilterSet(query_params.validated_data, query_set)
+        filter_set = self.FilterSet(
+            input_serializer.validated_data,
+            Employees.objects.all()
+        )
 
         # paginaion
-        page = self.LimitofPage()
-        p = page.paginate_queryset(queryset=filters.qs, request=self.request)
+        paginator = DefaultPaginator()
 
-        # Serialized
-        items = self.OutputSerializer(p, many=True)
+        # Serialize
+        items = self.OutputSerializer(
+            paginator.paginate_queryset(queryset=filter_set.qs, request=self.request),
+            many=True
+        )
 
-        return page.get_paginated_response(items.data)
+        return paginator.get_paginated_response(items.data)

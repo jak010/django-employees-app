@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from .models.EmployeeModel import Employees
-
 from django.db import IntegrityError
+
 from config.exceptions import EmployeeException
+from .models.EmployeeModel import Employees
 
 
 def create_employee(

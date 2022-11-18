@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from ..models.EmployeeModel import Employees
 from ..serializers import EmployeeSerializer
 
+from config.exceptions import NotFoundError
+
 
 class EmployeeDetailApi(APIView):
     """ Employee Update Api """
@@ -15,6 +17,9 @@ class EmployeeDetailApi(APIView):
 
         employee = Employees.objects.filter(emp_no=emp_no) \
             .first()
+
+        if employee is None:
+            raise NotFoundError()
 
         # prefetch_related가 아닌 DRF Serializer에서 쿼리를 수행한다.
         serializer = EmployeeSerializer(employee)

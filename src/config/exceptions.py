@@ -13,6 +13,12 @@ class BadRequestError(APIException):
     default_detail = "Server Bad Request Error"
 
 
+class NotFoundError(APIException):
+    status_code = status.HTTP_404_NOT_FOUND
+    default_code = 40004
+    default_detail = "Server NotFound"
+
+
 class ApiException(Exception):
     """ All Exception Parser """
 

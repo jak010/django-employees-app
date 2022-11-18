@@ -109,6 +109,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'config.paginator.DefaultPaginator',
     'PAGE_SIZE': 10,
 
-    'EXCEPTION_HANDLER': 'config.exception_handler.exception_handler_func'
+    'EXCEPTION_HANDLER': 'config.exception_handler.ExceptionHandler'
+    # 'EXCEPTION_HANDLER': 'config.exception_handler.exception_handler_func'
 
 }

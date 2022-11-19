@@ -17,19 +17,19 @@ def create_employee(
 ) -> Employees:
     last_row = Employees.manager.last_emp_no()
 
-    with transaction.atomic():
-        try:
+    try:
+        with transaction.atomic():
             model = Employees.objects.create(
-                emp_no=last_row,
+                emp_no=last_row + 1,
                 first_name=first_name,
                 last_name=last_name,
                 gender=gender,
                 hire_date=hire_date,
                 birth_date=birth_date
             )
-        except IntegrityError as e:
-            if "Duplicate" in e.args[1]:
-                print(e.args)
-                raise EmployeeException.EmployeeDuplicationError()
+    except IntegrityError:
+        raise EmployeeException.EmployeeDuplicationError()
+    finally:
+        transaction.commit()
 
     return model

@@ -32,6 +32,7 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             "isolation_level": "REPEATABLE READ",
+            "autocommit": False
         },
 
         'TEST': {

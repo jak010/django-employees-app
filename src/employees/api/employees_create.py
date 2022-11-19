@@ -2,14 +2,13 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .. import services
+from .. import services, exceptions
 
 
 class EmployeeCreateApi(APIView):
     """ Employee 생성 Api """
 
     class InputSerializer(serializers.Serializer):  # noqa
-        emp_no = serializers.IntegerField(max_value=1)
         first_name = serializers.CharField(max_length=15)
         last_name = serializers.CharField(max_length=15)
         gender = serializers.ChoiceField(choices=('M', 'F'))

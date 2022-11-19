@@ -5,6 +5,12 @@ from django.db import models
 from django.db.models.query import QuerySet
 
 
+class EmployeesExtraManager(models.Manager):
+
+    def last_emp_no(self) -> int:
+        return self.model.objects.last().emp_no
+
+
 class Employees(models.Model):
     """ Employee 에 대한 Model  """
 
@@ -16,6 +22,7 @@ class Employees(models.Model):
     hire_date = models.DateField()
 
     objects: QuerySet = models.Manager()
+    manager = EmployeesExtraManager()
 
     class Meta:
         db_table = 'employees'

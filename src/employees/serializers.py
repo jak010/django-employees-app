@@ -16,8 +16,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employees
-        fields = ['__all__',
-                  'titles_set']
+        fields = '__all__'
+        extra_fields = 'titles_set'
 
     def to_representation(self, instance):
         return {

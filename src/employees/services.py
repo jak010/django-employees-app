@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from django.db import IntegrityError
 
-from config.exceptions import EmployeeException
+from .exceptions import EmployeeException
 from .models.EmployeeModel import Employees
 
 

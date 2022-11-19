@@ -1,10 +1,13 @@
 from __future__ import annotations
-from typing import TypedDict, Union
+
 from rest_framework import status
 from rest_framework.exceptions import (
     APIException,
 )
-from django.http.response import JsonResponse, HttpResponse
+
+
+class ApplicationException(Exception):
+    """ Api Level Exception Type """
 
 
 class BadRequestError(APIException):
@@ -17,20 +20,3 @@ class NotFoundError(APIException):
     status_code = status.HTTP_404_NOT_FOUND
     default_code = 40004
     default_detail = "Server NotFound"
-
-
-class ApiException(Exception):
-    """ All Exception Parser """
-
-
-class EmployeeException(ApiException):
-    """ EmployeeExcetpion"""
-
-    class EmployeeCreateFailError(APIException):
-        """ Employee 생성 실패 """
-
-    class EmployeeDuplicationError(APIException):
-        """ 중복된 Employee """
-        status_code = 200
-        default_code = 10001
-        default_detail = "Employee Duplicate, " + f"{default_code}"

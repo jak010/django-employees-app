@@ -1,17 +1,16 @@
 from __future__ import annotations
 
+from rest_framework import exceptions as drf_exceptions
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 
-# from rest_framework.views import exception_handler
-
-from rest_framework.exceptions import APIException
-from rest_framework import exceptions as drf_exceptions
-
+from . import exceptions as define_exec
 from .exceptions import (
-    BadRequestError, NotFoundError
+    NotFoundError
 )
 
-from . import exceptions as define_exec
+
+# from rest_framework.views import exception_handler
 
 
 class ExceptionMeta(type):
@@ -48,20 +47,3 @@ class ExceptionHandler(metaclass=ExceptionMeta):
             'code': exec.default_code,
             'debug': exec.detail,
         }
-
-# def exception_handler_func(exc, context):
-#     print("="*20)
-#     print(exc, context, type(exc), type(context))
-#     print("=" * 20)
-#     exec = ""
-#     if isinstance(exc, ValidationError):
-#         exec = BadRequestError()
-#     if isinstance(exc, NotFoundError):
-#         exec = NotFoundError()
-#
-#     response = exception_handler(exec, context)
-#     if response is not None:
-#         response.data['code'] = exec.get_codes()
-#         response.data['detail'] = exc.get_full_details()
-#
-#     return response

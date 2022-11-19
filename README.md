@@ -1,6 +1,6 @@
 # Employess Project With Django
 
-## Environment 
+## Environment
 
 - Pycharm 에서 src를 Source Root로 지정할 것
 - DataBase는 [DataBase](#DataBase) 참조
@@ -81,3 +81,9 @@
 - `department(s)` : 부서
     - 직원은 하나의 부서에 속한다. 부서는 다음과 같은 정보로 구분된다.
         - 부서번호, 부서명
+
+### Employees 개발
+
+- CRUD
+- Employees 통계
+    - 각 title 별 통계 

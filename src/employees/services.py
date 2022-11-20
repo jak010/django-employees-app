@@ -33,3 +33,7 @@ def create_employee(
         transaction.commit()
 
     return model
+
+
+# TODO: 22/11/20, employees 통계 구현하기
+def statistics_employees(): ...

@@ -9,19 +9,9 @@ from ..serializers import EmployeeSerializer
 from config.exceptions import NotFoundError
 
 
-class EmployeeDetailApi(APIView):
-    """ Employee Update Api """
+class EmployeeStatisticsApi(APIView):
+    """ Employee Statistics Api
+    - employee 통계
+    """
 
-    def get(self, request, emp_no: int):
-        """ employee 상세조회 api """
-
-        employee = Employees.objects.filter(emp_no=emp_no) \
-            .first()
-
-        if employee is None:
-            raise NotFoundError()
-
-        # prefetch_related가 아닌 DRF Serializer에서 쿼리를 수행한다.
-        serializer = EmployeeSerializer(employee)
-
-        return Response(data=serializer.data)
+    def get(self, request, emp_no: int): ...

@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.views import APIView
 
 from config.paginator import DefaultPaginator
-from ..models.EmployeeModel import Employees
+from employees.models.EmployeeModel import Employees
 
 
 class EmployeeListApi(APIView):

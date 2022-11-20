@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .. import services, exceptions
+from employees import services
 
 
 class EmployeeCreateApi(APIView):

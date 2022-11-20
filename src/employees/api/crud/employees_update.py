@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 from django.http import HttpResponse
-
 from rest_framework import serializers
 from rest_framework.views import APIView
 
-from ..models.EmployeeModel import Employees
+from employees.models.EmployeeModel import Employees
 
 
 class EmployeeUpdateApi(APIView):

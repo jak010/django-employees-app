@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .api import (
-    employees_create,
+from .api.crud import (
     employees_list,
     employees_update,
-    employees_detail
+    employees_detail,
+    employees_create
 )
 
 app_name = "employee"

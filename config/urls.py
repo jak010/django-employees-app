@@ -16,7 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.http.response import JsonResponse
+
+
+def test_view(request):
+    return JsonResponse(data={"content": "test"})
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test', test_view),
     path('employees/', include('employees.urls'))
 ]

@@ -33,3 +33,9 @@
 - `Employees Structure`
     - `https://dev.mysql.com/doc/employee/en/sakila-structure.html`
     - `https://dataedo.com/samples/html/Employees_MySQL/doc/Employees_(MySQL_database)_7/tables.html`
+
+
+# Commands
+
+uwsgi --http :8001 --virtualenv /Users/owleraloner/private/develop/github-src/django-employees-app/venv  --chdir /Users/owleraloner/private/develop/github-src/django-employees-app --module config.wsgiuwsgi --http :8001 --virtualenv /Users/owleraloner/private/develop/github-src/django-employees-app/venv  --chdir /Users/owleraloner/private/develop/github-src/django-employees-app --module config.wsgi
+uwsgi --http :8001 --chdir /Users/owleraloner/private/develop/github-src/django-employees-app --module config.wsgi

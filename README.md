@@ -36,6 +36,7 @@
 
 
 # Commands
-
-uwsgi --http :8001 --virtualenv /Users/owleraloner/private/develop/github-src/django-employees-app/venv  --chdir /Users/owleraloner/private/develop/github-src/django-employees-app --module config.wsgiuwsgi --http :8001 --virtualenv /Users/owleraloner/private/develop/github-src/django-employees-app/venv  --chdir /Users/owleraloner/private/develop/github-src/django-employees-app --module config.wsgi
-uwsgi --http :8001 --chdir /Users/owleraloner/private/develop/github-src/django-employees-app --module config.wsgi
+```bash
+uwsgi --http :8001 --virtualenv $(WORK_DIR)/venv  --chdir $(WORK_DIR)/django-employees-app --module config.wsgiuwsgi --http :8001
+uwsgi --http :8001 --chdir $(WORK_DIR)/django-employees-app --module config.wsgi
+```
